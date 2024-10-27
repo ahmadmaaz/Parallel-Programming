@@ -1,0 +1,34 @@
+initialize MPI environment
+get rank of the current process
+
+set n as global variable = 10^6 
+if rank == 0: 
+    initialize array data of size n with random values 
+    
+broadcast the n +number of processes to all processes
+
+chunk_size= n / number of processes
+
+initialize + allocate local_data array for each process 
+use mpi scatter function to scatter data from root to all processes
+allocate buckets and sendcounts to each process ( m small buckets)
+
+for element in local_data:
+    determine to which small bucket does it belong to based on value range
+    store it in the appriopriate small bucket
+    calulate send displacements for each_ procesor ( to place the incoming data later on)
+
+exhange counts of data each processor will receive from all tro all ( scatter of each process)
+calculate receive displacements ( small to big buckets)
+allocate recv buffers for received data
+
+use all-to-all broadcast to exchange data
+
+apply qsort on the big bucket of each process
+
+gather size of sorted array from each process
+
+if rank ==0:
+    use gather function to merge all big buckets into one array in the master node
+
+free all arrays allocation from memory 
