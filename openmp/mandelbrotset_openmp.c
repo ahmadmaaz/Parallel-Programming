@@ -88,7 +88,7 @@ int main(int argc, char **argv)
 
         // This for loop is iterating over every row , Therefore we need to parallelize it
         // We set c as a private variable to the thread
-        #pragma omp parallel for private(c) schedule(dynamic, 1) // 1 row at a time
+        #pragma omp parallel for private(c) schedule(dynamic, 1) shared(image) // 1 row at a time
         for (i = 0; i < HEIGHT; i++)
         {
             for (j = 0; j < WIDTH; j++)
